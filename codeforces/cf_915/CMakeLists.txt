@@ -1,0 +1,3 @@
+add_executable(cf_915_a a_constructive_problems.cpp)
+add_executable(cf_915_b b_beginners_zelda.cpp)
+add_executable(cf_915_c c_largest_subsequence.cpp)
