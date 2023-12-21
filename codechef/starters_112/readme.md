@@ -16,6 +16,7 @@
   - [cpp](logician.cpp)
 - [Cursed Indices](https://www.codechef.com/problems/CURSED):
   - Div 1-4
+  - [cpp](cursed.cpp)
 - [Permutation Construction](https://www.codechef.com/problems/PERMUTATION_):
   - Div 1-4
 - [Yet Another Array Game](https://www.codechef.com/problems/ARRAYGAME):
