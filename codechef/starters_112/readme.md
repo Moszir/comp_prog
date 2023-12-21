@@ -13,6 +13,7 @@
   - [cpp](nutrition.cpp)
 - [3 Logicians Walk Into a Bar](https://www.codechef.com/problems/LOGICIAN):
   - Div 2-4
+  - [cpp](logician.cpp)
 - [Cursed Indices](https://www.codechef.com/problems/CURSED):
   - Div 1-4
 - [Permutation Construction](https://www.codechef.com/problems/PERMUTATION_):
