@@ -8,4 +8,5 @@ project(
 set(CMAKE_CXX_STANDARD 23)
 
 add_subdirectory(contest_sandbox)
+add_subdirectory(codechef)
 add_subdirectory(codeforces)

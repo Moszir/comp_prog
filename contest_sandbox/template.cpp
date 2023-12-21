@@ -1,24 +1,30 @@
 // region Includes, macros, utility functions
 #include <algorithm>
+#include <array>
 #include <iostream>
+#include <numeric>
 #include <vector>
 
-#define FROM_FILE
-#ifdef FROM_FILE
-    #include <fstream>
-    const auto thisFile = std::string(__FILE__);
-    std::ifstream inputFile(std::string(__FILE__).replace(thisFile.size()-3, 3, "txt"));
-    #define in inputFile
+//#define DO_DEBUG
+#ifdef DO_DEBUG
     #define D(x) std::cout << x << '\n';
     #define D2(x, y) std::cout << x << y << '\n';
     #define D3(x, y, z) std::cout << x << y << z << '\n';
 #else
-    #define in std::cin
     #define D(x)
     #define D2(x, y)
     #define D3(x, y, z)
 #endif
+
+#define in std::cin
 #define out std::cout
+
+#define LL int64_t
+#define PII std::pair<int, int>
+#define VI std::vector<int>
+#define VLL std::vector<LL>
+#define VPII std::vector<PII>
+#define SZ(x) static_cast<int>((x).size())
 
 using String = std::string;
 using Strings = std::vector<String>;
@@ -33,11 +39,6 @@ std::tuple<int, std::vector<T>> readVector()
     for (auto& v: values) { in >> v; }
     return std::tie(n, values);
 }
-
-#define SZ(x) static_cast<int>((x).size())
-#define VI std::vector<int>
-#define PII std::pair<int, int>
-#define VPII std::vector<PII>
 // endregion Includes, macros, utility functions
 
 int main()
