@@ -19,6 +19,7 @@
   - [cpp](cursed.cpp)
 - [Permutation Construction](https://www.codechef.com/problems/PERMUTATION_):
   - Div 1-4
+  - [cpp](permutation_.cpp)
 - [Yet Another Array Game](https://www.codechef.com/problems/ARRAYGAME):
   - Div 1-4
 - [Subtree Coloring](https://www.codechef.com/problems/COLORTREE):
