@@ -22,6 +22,7 @@
   - [cpp](permutation_.cpp)
 - [Yet Another Array Game](https://www.codechef.com/problems/ARRAYGAME):
   - Div 1-4
+  - [cpp](arraygame.cpp)
 - [Subtree Coloring](https://www.codechef.com/problems/COLORTREE):
   - Div 1-4
 - [Maximise Sum](https://www.codechef.com/problems/MAXSUMOPS):
