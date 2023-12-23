@@ -16,8 +16,8 @@
     #define D3(x, y, z)
 #endif
 
-#define in std::cin
-#define out std::cout
+#define IN std::cin >>
+#define OUT std::cout <<
 
 #define LL int64_t
 #define PII std::pair<int, int>
@@ -26,27 +26,22 @@
 #define VPII std::vector<PII>
 #define SZ(x) static_cast<int>((x).size())
 
-using String = std::string;
-using Strings = std::vector<String>;
-
-template<typename T> T read() { T t; in >> t; return t; }
-
 template<typename T>
 std::tuple<int, std::vector<T>> readVector()
 {
-    auto n = read<int>();
+    int n; IN n;
     std::vector<T> values(n);
-    for (auto& v: values) { in >> v; }
+    for (auto& v: values) { IN v; }
     return std::tie(n, values);
 }
 // endregion Includes, macros, utility functions
 
 int main()
 {
-    auto t = read<int>();
+    int t; IN t;
     while (t--)
     {
-//        auto [n, a] = readVector<i64>();
+//        auto [n, a] = readVector<LL>();
     }
     return 0;
 }

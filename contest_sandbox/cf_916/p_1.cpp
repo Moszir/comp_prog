@@ -1,8 +1,6 @@
 // region Includes, macros, utility functions
 #include <algorithm>
-#include <array>
 #include <iostream>
-#include <numeric>
 #include <vector>
 
 //#define DO_DEBUG
@@ -16,8 +14,8 @@
     #define D3(x, y, z)
 #endif
 
-#define IN std::cin >>
-#define OUT std::cout <<
+#define in std::cin
+#define out std::cout
 
 #define LL int64_t
 #define PII std::pair<int, int>
@@ -26,21 +24,31 @@
 #define VPII std::vector<PII>
 #define SZ(x) static_cast<int>((x).size())
 
+using String = std::string;
+using Strings = std::vector<String>;
+
+template<typename T> T read() { T t; in >> t; return t; }
+
 template<typename T>
 std::tuple<int, std::vector<T>> readVector()
 {
-    int n; IN n;
+    auto n = read<int>();
     std::vector<T> values(n);
-    for (auto& v: values) { IN v; }
+    for (auto& v: values) { in >> v; }
     return std::tie(n, values);
-} // auto [n, a] = readVector<LL>();
+}
 // endregion Includes, macros, utility functions
 
 int main()
 {
-    int t; IN t;
+    auto t = read<int>();
     while (t--)
     {
+        int n, k; in >> n >> k;
+        out << n-k;
+        for (int i = n-k+1; i <= n; ++i) { out << ' ' << i;}
+        for (int i = n-k-1; i >= 1; --i) { out << ' ' << i;}
+        out << '\n';
     }
     return 0;
 }
