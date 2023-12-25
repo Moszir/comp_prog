@@ -7,11 +7,11 @@
  * of the people ahead of them.
  * Can you predict all their replies?
  */
-
 #include <iostream>
 
-#define in std::cin
-#define out std::cout
+#define IN std::cin >>
+#define OUT std::cout <<
+#define SZ(v) (static_cast<int>(v.size()))
 
 /**
  * If someone is a NO, then they are a NO, and everyone after them is also a NO.
@@ -20,16 +20,16 @@
  */
 int main()
 {
-    int t; in >> t;
+    int t; IN t;
     while (t--)
     {
-        int n; in >> n;
-        std::string s; in >> s;
+        int n; IN n;
+        std::string s; IN s;
         bool someoneSaidNo = false;
-        for (uint32_t i = 0u; i < s.size(); ++i)
+        for (int i = 0; i < SZ(s); ++i)
         {
             if (s[i] == '0') { someoneSaidNo = true; }
-            out << (someoneSaidNo ? "NO" : (i == s.size()-1u ? "YES" : "IDK")) << '\n';
+            OUT (someoneSaidNo ? "NO" : (i == s.size()-1u ? "YES" : "IDK")) << '\n';
         }
     }
     return 0;
