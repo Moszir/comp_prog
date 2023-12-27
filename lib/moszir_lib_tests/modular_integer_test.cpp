@@ -1,10 +1,9 @@
 #include "gtest/gtest.h"
-#include "modular_integer.hpp"
-//#include "modular_integer_terse.hpp"
+#include "moszir_lib/math/modular_integer_terse.hpp"
 
 
 constexpr int intModulus = 7;
-using ModularInt = Modular<std::integral_constant<std::decay<decltype(intModulus)>::type, intModulus>>;
+using ModularInt = ::moszir::Modular<std::integral_constant<std::decay<decltype(intModulus)>::type, intModulus>>;
 
 TEST(modular, defaultConstructor)
 {

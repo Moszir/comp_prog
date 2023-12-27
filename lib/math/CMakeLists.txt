@@ -1,5 +1,0 @@
-include(GoogleTest)
-
-add_executable(modular_integer_test modular_integer_test.cpp)
-target_link_libraries(modular_integer_test gtest gtest_main)
-gtest_discover_tests(modular_integer_test)

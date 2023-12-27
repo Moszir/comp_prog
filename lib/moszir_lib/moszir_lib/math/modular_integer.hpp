@@ -1,5 +1,8 @@
 #include <string>
 
+namespace moszir
+{
+
 /**
  * @brief Solves the modular equation `a * x == 1 (m)`.
  *
@@ -149,5 +152,7 @@ std::istream& operator>>(std::istream& stream, Modular<T>& number) {
     return stream;
 }
 
+} // namespace moszir
+
 //> constexpr int md = @@HERE@@;
-//> using Mint = Modular<std::integral_constant<std::decay<decltype(md)>::type, md>>;
+//> using Mint = ::moszir::Modular<std::integral_constant<std::decay<decltype(md)>::type, md>>;
