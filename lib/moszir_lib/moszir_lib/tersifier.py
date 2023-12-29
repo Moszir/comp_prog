@@ -10,19 +10,6 @@ class BufferedWriter:
 
     _verbatim_prefixes = {'#', '//>'}
 
-    def __dump_buffer(
-            self,
-            target: typing.TextIO,
-            end_index: typing.Optional[int] = None,
-            ending: str = '\n') -> None:
-        if len(self.__buffer) > 0:
-            if end_index is not None and end_index > 0:
-                target.write(self.__buffer[:end_index] + ending)
-                self.__buffer = self.__buffer[end_index:]
-            else:
-                target.write(self.__buffer + ending)
-                self.__buffer = ''
-
     def terse(self):
         """ Tersifies the source into the target
 
@@ -31,10 +18,10 @@ class BufferedWriter:
 
         Lines containing // have the part starting with it chopped off.
         """
-        self.__buffer = ''
         in_comment_block = False
         with self.__source.open() as source:
             with self.__target.open(encoding='utf-8', mode='w') as target:
+                target.write(f'// region {self.__source.name[:-4]}\n')
                 for line in source.readlines():
                     if in_comment_block:
                         if '*/' in line:
@@ -45,17 +32,14 @@ class BufferedWriter:
                         continue
 
                     if any((line.startswith(prefix) for prefix in self._verbatim_prefixes)):
-                        self.__dump_buffer(target)
-                        target.write(line)  # has '\n'
+                        target.write(line)
                         continue
 
                     if '//' in line:
-                        line = line[:line.index('//')]
-                    self.__buffer += line.strip()
-                    if len(self.__buffer) > 100:
-                        i = self.__buffer.find(' ', 100)
-                        self.__dump_buffer(target, end_index=i)
-                self.__dump_buffer(target, ending='\n\n')
+                        line = line[:line.index('//')] + '\n'
+                    if line.rstrip() != '':
+                        target.write(line)
+                target.write(f'// endregion {self.__source.name[:-4]}\n')
 
 
 print(pathlib.Path(__file__).parent)

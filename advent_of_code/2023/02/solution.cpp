@@ -1,6 +1,6 @@
 #include <fstream>
 #include <iostream>
-#include <cstdint>
+
 #include "moszir_lib/string/string_vector.hpp"
 
 struct Cubes
@@ -20,13 +20,13 @@ void solve(const std::string &fileName)
     int solutionB = 0;
     for (int gameId = 1; in.good(); ++gameId)
     {
-        StringVector game(in, ":;", false);
+        StringVector game(in, ":;");
         if (game.empty()) { break; }
 
         Cubes cubes;
         for (uint32_t i = 1u; i < game.size(); ++i)  // ignore the starting "Game 13" part
         {
-            StringVector cubesDescription(game[i], ", ", false);
+            StringVector cubesDescription(game[i], ", ");
             for (uint32_t j = 0u; j < cubesDescription.size(); j += 2)
             {
                 const auto &color = cubesDescription[j + 1u];

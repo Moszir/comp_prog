@@ -14,11 +14,11 @@ TEST(stringVector, defaultConstructor)
 
 /**
  * @test
- * Tests the string vector's constructor with 1 delimiter, empty fields not allowed.
+ * Tests the string vector's constructor with 1 delimiter.
  */
-TEST(stringVector, constructor1)
+TEST(stringVector, constructorOneDelimiter)
 {
-    StringVector sv(";;Apple;;;banana;;lemon;", ";", false);
+    StringVector sv(";;Apple;;;banana;;lemon;", ";");
     EXPECT_EQ(3u, sv.size());
     EXPECT_EQ("Apple", sv[0]);
     EXPECT_EQ("banana", sv[1]);
@@ -27,35 +27,13 @@ TEST(stringVector, constructor1)
 
 /**
  * @test
- * Tests the string vector's constructor with 1 delimiter, empty fields are allowed.
+ * Tests the string vector's constructor with multiple delimiters.
  */
-TEST(stringVector, constructor2)
+TEST(stringVector, constructorMultipleDelimiters)
 {
-    StringVector sv(";;Apple;;;banana;;lemon;", ";", true);
-    EXPECT_EQ(9u, sv.size());
-    EXPECT_EQ(sv, std::vector<std::string>({"", "", "Apple", "", "", "banana", "", "lemon", ""}));
-}
-
-/**
- * @test
- * Tests the string vector's constructor with multiple delimiters, empty fields are not allowed.
- */
-TEST(stringVector, constructor3)
-{
-    StringVector sv(",;Apple.;,banana.,lemon;", ";.,", false);
+    StringVector sv(",;Apple.;,banana.,lemon;", ";.,");
     EXPECT_EQ(3u, sv.size());
     EXPECT_EQ(sv, std::vector<std::string>({"Apple", "banana", "lemon"}));
-}
-
-/**
- * @test
- * Tests the string vector's constructor with multiple delimiters, empty fields are allowed.
- */
-TEST(stringVector, constructor4)
-{
-    StringVector sv(",;Apple.;,banana.,lemon;", ";.,", true);
-    EXPECT_EQ(9u, sv.size());
-    EXPECT_EQ(sv, std::vector<std::string>({"", "", "Apple", "", "", "banana", "", "lemon", ""}));
 }
 
 /**
@@ -67,19 +45,13 @@ TEST(stringVector, fromStream)
     std::ofstream out("string_vector_from_stream.txt");
     out <<
         ";;Apple;;;banana;;lemon;\n"
-        ";;Apple;;;banana;;lemon;\n"
-        ",;Apple.;,banana.,lemon;\n"
         ",;Apple.;,banana.,lemon;\n";
     out.close();
 
     std::ifstream in("string_vector_from_stream.txt");
-    StringVector sv(in, ";", true);
-    EXPECT_EQ(sv, std::vector<std::string>({"", "", "Apple", "", "", "banana", "", "lemon", ""}));
-    sv = StringVector(in, ";", false);
+    StringVector sv(in, ";");
     EXPECT_EQ(sv, std::vector<std::string>({"Apple", "banana", "lemon"}));
-    sv = StringVector(in, ";.,", true);
-    EXPECT_EQ(sv, std::vector<std::string>({"", "", "Apple", "", "", "banana", "", "lemon", ""}));
-    sv = StringVector(in, ";,.", false);
+    sv = StringVector(in, ";.,");
     EXPECT_EQ(sv, std::vector<std::string>({"Apple", "banana", "lemon"}));
 
     // The file has an empty line at its end.
@@ -88,7 +60,7 @@ TEST(stringVector, fromStream)
     int counter = 0;
     while (in.good() && (++counter < 10))
     {
-        sv = StringVector(in, ";,.", false);
+        sv = StringVector(in, ";,.");
         EXPECT_TRUE(sv.empty());
     }
     EXPECT_EQ(counter, 1);
@@ -96,52 +68,15 @@ TEST(stringVector, fromStream)
 
 /**
  * @test
- * Tests the `fromString` function with 1 delimiter, empty fields not allowed.
+ * Tests the `addTokens` function.
  */
-TEST(stringVector, fromString1)
+TEST(stringVector, addTokens)
 {
-    StringVector sv("original content", " ");
-    sv.fromString(";;Apple;;;banana;;lemon;", ";", false);
-    EXPECT_EQ(3u, sv.size());
-    EXPECT_EQ("Apple", sv[0]);
-    EXPECT_EQ("banana", sv[1]);
-    EXPECT_EQ("lemon", sv[2]);
-}
-
-/**
- * @test
- * Tests the `fromString` function with 1 delimiter, empty fields are allowed.
- */
-TEST(stringVector, fromString2)
-{
-    StringVector sv("original content", " ");
-    sv.fromString(";;Apple;;;banana;;lemon;", ";", true);
-    EXPECT_EQ(9u, sv.size());
-    EXPECT_EQ(sv, std::vector<std::string>({"", "", "Apple", "", "", "banana", "", "lemon", ""}));
-}
-
-/**
- * @test
- * Tests the `fromString` function with multiple delimiters, empty fields are not allowed.
- */
-TEST(stringVector, fromString3)
-{
-    StringVector sv("original content", " ");
-    sv.fromString(",;Apple.;,banana.,lemon;", ";.,", false);
-    EXPECT_EQ(3u, sv.size());
+    StringVector sv{};
+    sv.addTokens("Apple;banana;lemon", ';');
     EXPECT_EQ(sv, std::vector<std::string>({"Apple", "banana", "lemon"}));
-}
-
-/**
- * @test
- * Tests the `fromString` function with multiple delimiters, empty fields are allowed.
- */
-TEST(stringVector, fromString4)
-{
-    StringVector sv("original content", " ");
-    sv.fromString(",;Apple.;,banana.,lemon;", ";.,", true);
-    EXPECT_EQ(9u, sv.size());
-    EXPECT_EQ(sv, std::vector<std::string>({"", "", "Apple", "", "", "banana", "", "lemon", ""}));
+    sv.addTokens("coconut,grapefruit;cinnamon,carrot", ",;");
+    EXPECT_EQ(sv, std::vector<std::string>({"Apple", "banana", "lemon", "coconut", "grapefruit", "cinnamon", "carrot"}));
 }
 
 /**
