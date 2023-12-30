@@ -16,8 +16,8 @@
 
 #define LL int64_t
 #define VLL std::vector<LL>
-#define in std::cin
-#define out std::cout
+#define IN std::cin >>
+#define OUT std::cout <<
 
 /**
  * S = 0
@@ -37,12 +37,12 @@
  */
 int main()
 {
-    int t, s; in >> t >> s;
+    int t, s; IN t >> s;
     while (t--)
     {
-        int n; in >> n;
+        int n; IN n;
         VLL a(n);
-        for (int i = 0u; i < n; ++i) { in >> a[i]; }
+        for (int i = 0u; i < n; ++i) IN a[i];
         std::sort(a.begin(), a.end());
 
         const bool even = (n % 2 == 0);
@@ -68,7 +68,7 @@ int main()
                 best = std::max(best, sum);
             }
         }
-        out << best << '\n';
+        OUT best << '\n';
     }
     return 0;
 }
