@@ -21,6 +21,7 @@ FetchContent_Declare(
 # For Windows: Prevent overriding the parent project's compiler/linker settings
 set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
 FetchContent_MakeAvailable(googletest)
+enable_testing()
 
 # Google benchmark
 FetchContent_Declare(
@@ -30,7 +31,6 @@ FetchContent_Declare(
         FIND_PACKAGE_ARGS NAMES benchmark
 )
 FetchContent_MakeAvailable(google_benchmark)
-
 
 
 add_subdirectory(advent_of_code)

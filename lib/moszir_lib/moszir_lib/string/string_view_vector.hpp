@@ -1,7 +1,6 @@
 #pragma once
 
 #include <cstring>
-#include <fstream>
 #include <string>
 #include <vector>
 
@@ -9,40 +8,32 @@
 namespace moszir
 {
 
-class StringVector : public std::vector<std::string>
+/**
+ * A vector of string views with added parsing capabilities.
+ *
+ * @warning String views are non-owning references, their target should outlive them!
+ *
+ * @note It can be significantly faster than a `StringVector` due to not copying strings.
+ */
+class StringViewVector : public std::vector<std::string_view>
 {
 public:
     /**
-     * @brief Creates an empty string vector.
+     * @brief Creates an empty string view vector.
      */
-    StringVector() = default;
+    StringViewVector() = default;
 
     /**
-     * @brief Creates a string vector by chopping up the given string with the given delimiters.
+     * @brief Creates a string view vector by chopping up the given string with the given delimiters.
      *
      * @param sourceString The given string
      * @param delimiters The delimiters
      * @param emptyFieldsAllowed Whether empty parts (e.g. between two delimiters or at the start/end) are allowed.
      */
-    StringVector(const std::string& sourceString, const std::string& delimiters)
+    StringViewVector(const std::string& sourceString, const std::string& delimiters)
     {
         reserve(4);
         addTokens(sourceString, delimiters);
-    }
-
-    /**
-     * @brief Creates a string vector by reading a line from the stream, and chopping it up with the given delimiters.
-     *
-     * @param stream The stream to read from
-     * @param delimiters The delimiters
-     * @param emptyFieldsAllowed Whether empty parts (e.g. between two delimiters or at the start/end) are allowed.
-     */
-    StringVector(std::istream& stream, const std::string& delimiters)
-    {
-        reserve(4);
-        std::string s;
-        std::getline(stream, s);
-        addTokens(s, delimiters);
     }
 
     /**
@@ -73,7 +64,7 @@ public:
             }
             if (delimiterPos - sourcePos > 0)
             {
-                push_back(std::string(sourcePos, static_cast<int>(delimiterPos - sourcePos)));
+                push_back(std::string_view(sourcePos, static_cast<int>(delimiterPos - sourcePos)));
             }
             if (!*delimiterPos)
             {
@@ -110,7 +101,7 @@ public:
             }
             if (delimiterPos - sourcePos > 0)
             {
-                push_back(std::string(sourcePos, static_cast<int>(delimiterPos - sourcePos)));
+                push_back(std::string_view(sourcePos, static_cast<int>(delimiterPos - sourcePos)));
             }
             if (!*delimiterPos)
             {

@@ -1,7 +1,7 @@
 #include <fstream>
 #include <iostream>
 
-#include "moszir_lib/string/string_vector.hpp"
+#include "moszir_lib/string.hpp"
 
 struct Cubes
 {
@@ -11,27 +11,25 @@ struct Cubes
     [[nodiscard]] int power() const { return greens * reds * blues; }
 };
 
-using StringVector = moszir::StringVector;
-
-void solve(const std::string &fileName)
+void solve(const std::string& fileName)
 {
     std::ifstream in(fileName);
     int solutionA = 0;
     int solutionB = 0;
     for (int gameId = 1; in.good(); ++gameId)
     {
-        StringVector game(in, ":;");
+        moszir::StringVector game(in, ":;");
         if (game.empty()) { break; }
 
         Cubes cubes;
         for (uint32_t i = 1u; i < game.size(); ++i)  // ignore the starting "Game 13" part
         {
-            StringVector cubesDescription(game[i], ", ");
+            moszir::StringViewVector cubesDescription(game[i], ", ");
             for (uint32_t j = 0u; j < cubesDescription.size(); j += 2)
             {
-                const auto &color = cubesDescription[j + 1u];
-                const auto number = std::stoi(cubesDescription[j]);
-                auto &store = (color == "green" ? cubes.greens : color == "red" ? cubes.reds : cubes.blues);
+                const auto& color = cubesDescription[j + 1u];
+                const auto number = moszir::toInt(cubesDescription[j]);
+                auto& store = (color == "green" ? cubes.greens : color == "red" ? cubes.reds : cubes.blues);
                 store = std::max(store, number);
             }
         }

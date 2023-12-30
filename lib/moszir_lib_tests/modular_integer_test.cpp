@@ -41,7 +41,9 @@ TEST(modular, normalize)
 
 TEST(modular, invert)
 {
+#ifndef NDEBUG // -> the `assert` macro is real.
     EXPECT_EXIT(ModularInt::invert(0), testing::ExitedWithCode(3), "");
+#endif
     // The `invert` method does return negative values when the `%` operator does so.
     // E.g. invert(2) is actually -3.
     // The return value is intentionally not normalized, as invert is used in the division operation

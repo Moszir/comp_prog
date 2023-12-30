@@ -8,7 +8,8 @@ class BufferedWriter:
         self.__target = target
         self.__buffer = ''
 
-    _verbatim_prefixes = {'#', '//>'}
+    _discarded_prefixes = {'#pragma'}
+    _verbatim_prefixes = {'#include', '//>'}
 
     def terse(self):
         """ Tersifies the source into the target
@@ -29,6 +30,9 @@ class BufferedWriter:
                         continue
                     if '/*' in line:
                         in_comment_block = True
+                        continue
+
+                    if any((line.startswith(prefix) for prefix in self._discarded_prefixes)):
                         continue
 
                     if any((line.startswith(prefix) for prefix in self._verbatim_prefixes)):
