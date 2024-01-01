@@ -7,6 +7,8 @@ project(
 
 set(CMAKE_CXX_STANDARD 23)
 
+find_package(Python COMPONENTS Interpreter REQUIRED)
+
 # =====================================================================================================================
 # 3rd party libraries
 include(FetchContent)

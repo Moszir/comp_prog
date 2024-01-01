@@ -3,3 +3,5 @@ target_link_libraries(aoc_2023_02 PRIVATE moszir_lib)
 
 configure_file(example.txt example.txt)
 configure_file(input.txt input.txt)
+
+add_aoc_python_solution(aoc_2023_02_py)
